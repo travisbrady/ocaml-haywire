@@ -1,0 +1,40 @@
+OASISFormat:        0.4
+Name:               haywire
+Version:            0.1
+Synopsis:           Minimal OCaml bindings to Haywire
+Authors:            Travis Brady
+License:            Apache-2.0
+LicenseFile:        LICENSE.txt
+Plugins:            META (0.4), DevFiles (0.4), StdFiles (0.4)
+XStdFilesAUTHORS:   false
+XStdFilesREADME:    false
+
+#PreBuildCommand:      ./_prebuild
+
+Library haywire
+  Path:                 lib
+  FindlibName:          haywire
+  BuildTools:           ocamlbuild
+  BuildDepends:         ctypes, ctypes.foreign
+  CompiledObject:       best
+  CSources:             haywire.h, stubs.c
+  Modules:              Haywire
+  CCLib:                -luv
+
+Executable simple
+  Path:                 examples
+  BuildTools:           ocamlbuild
+  BuildDepends:         haywire, ctypes, ctypes.foreign
+  CompiledObject:       native
+  NativeOpt:            -g
+  MainIs:               simple.ml
+  Install:              false
+
+Executable json_hello
+  Path:                 examples
+  BuildTools:           ocamlbuild
+  BuildDepends:         haywire, ppx_deriving_yojson
+  CompiledObject:       best
+  MainIs:               json_hello.ml
+  Install:              false
+
